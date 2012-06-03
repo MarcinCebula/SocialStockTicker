@@ -1,6 +1,8 @@
 SocialStockTicker::Application.routes.draw do
  
 
+  devise_for :admins
+
   # resource :examples, :defaults => { :format => 'json' }
   namespace :api do
     namespace :v1 do

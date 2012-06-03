@@ -12,7 +12,7 @@ gem "bson_ext", "~> 1.5"
 gem 'jquery-rails'
 gem 'rabl'
 gem 'haml'
-
+gem 'devise'
 
 # Gems used only for assets and not required
 # in production environments by default.
