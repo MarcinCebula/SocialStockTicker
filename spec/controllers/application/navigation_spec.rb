@@ -3,43 +3,56 @@ require 'capybara/rspec'
 
 describe "Navigation Requests Spec", :type => :request do
 
-	before(:each) do
-		visit '/'		
-	end
 	describe ".navbar" do
-	  it "should contain button Create Listing" do
+	  it "should contain link Home" do
+			visit '/'		
 	    within '.navbar' do
-	      page.should have_link('Create Listing')
+	      page.should have_link('Home')
 	    end
 	  end
-	  it "should contain button Log In" do
+	  it "should contain link Docs" do
+			visit '/'		
 	    within '.navbar' do
-	      page.should have_link('Log In')
+	      page.should have_link('Docs')
 	    end
 	  end
 	end
 
 	describe "Logo" do
-		it 'should link back to root_path' do
-			visit '/authentications'
-			within('.navbar') do
+		it 'should link back to root_path and check that only its tab is active' do
+			visit '/docs'
+			within '.navbar' do
 				click_link('SocialStockTicker')
 				current_path.should eq '/'
 			end
+			page.has_css?('li.active', :text => 'Home').should be_true
+			page.has_no_css?('li.active', :text => 'Docs').should be_true
 		end
 	end
-	describe "Create Listing a:tag" do
-		pending "should redirect to /listings#create_listing if user signed in"
+
+	describe "Home a:tag" do
+		it "should redirect to / check that only its tab is active" do
+			visit '/docs'
+			current_path.should eq '/docs'
+			within '.navbar' do
+				click_link('Home')
+			end
+			current_path.should eq '/'
+			page.has_css?('li.active', :text => 'Home').should be_true
+			page.has_no_css?('li.active', :text => 'Docs').should be_true
+		end
 	end
 
-	describe "Create Listing a:tag" do
-		it "should redirect to /authentications#log_in", :js => true do
+	describe "Docs a:tag" do
+		it "should redirect to / and set the docs bar as active" do
+			visit '/'
 			current_path.should eq '/'
-
 			within '.navbar' do
-				click_link('Log In')
+				click_link('Docs')
 			end
-			"#{current_path}#{page.current_js_route}".should eq '/authentications#login'
+			current_path.should eq '/docs'
+			page.has_css?('li.active', :text => 'Docs').should be_true
+			page.has_no_css?('li.active', :text => 'Home').should be_true
 		end
 	end
 end

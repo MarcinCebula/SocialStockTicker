@@ -1,6 +1,5 @@
 SocialStockTicker::Application.routes.draw do
  
-
   devise_for :admins
 
   # resource :examples, :defaults => { :format => 'json' }
@@ -13,6 +12,8 @@ SocialStockTicker::Application.routes.draw do
   end
   
   resources :authentications, :only => [:index]
+  resources :docs, :only => [:index]
+
 
   root :to => 'authentications#index'
 
