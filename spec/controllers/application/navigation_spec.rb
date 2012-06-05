@@ -2,6 +2,11 @@ require 'spec_helper'
 require 'capybara/rspec'
 
 describe "Navigation Requests Spec", :type => :request do
+	after(:all) { Admin.delete_all }
+	before(:all) do
+		Admin.delete_all
+		@admin = FactoryGirl.create(:admin) 
+	end
 
 	describe ".navbar" do
 	  it "should contain link Home" do
@@ -54,5 +59,32 @@ describe "Navigation Requests Spec", :type => :request do
 			page.has_css?('li.active', :text => 'Docs').should be_true
 			page.has_no_css?('li.active', :text => 'Home').should be_true
 		end
+	end
+	describe "Logout Button" do 
+		before(:each) { visit '/'}
+		it "should not be rendered if admin is not logged in" do
+			page.should_not have_link('Logout')
+		end
+		# it "should be rendered if admin is logged in" do
+		# 	sign_in :admin, Admin.first
+		# 	visit 'social_stocks'
+		# 	save_and_open_page
+		# 	# admin_signed_in?.should eq true
+		# 	within '.navbar' do
+		# 		page.should have_link('Logout')
+		# 	end
+		# end
+		# it "should log the user out and remove logout button when clicked" do
+		# 	visit '/'
+		# 	sign_in :admin, @admin
+		# 	page.should have_link('Logout')
+		# 	# admin_signed_in?.should eq true
+	 #    within '.navbar' do
+		# 		click_link 'Logout'
+		# 	end
+		# 		# admin_signed_in?.should eq false
+		# 	page.should_not have_link('Logout')
+		# end
+
 	end
 end

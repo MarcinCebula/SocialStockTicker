@@ -21,6 +21,11 @@ div class="navbar navbar-fixed-top"
 					- else
 						li  class=""
 							a href="#{docs_path}" Docs
+				- if admin_signed_in?			
+					ul class="nav pull-right"
+						li
+							div
+								= link_to "Logout", :destroy_admin_session, :method => :delete, :class => "btn btn-success btn-large" 
 
 
 / div class="navbar navbar-fixed-top"
