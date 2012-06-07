@@ -1,0 +1,35 @@
+<div class="well">
+	<div class="row">
+		<div class="span11">
+			<h1 class="page-header">Social Stocks</h1>
+		</div>
+		<div class="span8">
+			 <script type="text/x-handlebars">
+			  {{ view SocialStocks.AddStockButton }} 
+			 </script>
+		</div>
+	</div>
+</div>
+<div class="well">
+  <table class="table table-bordered table-striped">
+  	<thead>
+    	<tr>
+    		<th> Stock Name </th>
+    		<th> PTAT Score </th>
+    		<th> Website </th>
+    		<th> Delete </th>
+    	</tr>
+    </thead>
+		<script type="text/x-handlebars" data-tag-name="tbody">
+			{{#each SocialStocks.stocksController}}
+				{{#view SocialStocks.StockList contentBinding="this"}}
+					<td>{{content.name}}</td>
+					<td>{{content.ptat_score}}</td>
+					<td>{{content.link}}
+					<td>something</td>
+				{{/view}}
+			{{/each}}			
+		</script>
+	</table>
+	</div>
+</div> 
