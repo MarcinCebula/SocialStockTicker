@@ -11,8 +11,16 @@
 </head>
 <body>
 	<%= render 'layouts/application/navigation' %>
+	<% if notice %>
+		<p class="alert alert-success"><%= notice %></p>
+	<% elsif alert %>
+	 	<p class="alert alert-error"><%= alert %></p>
+	<% end %>
+
 	<div id="body">
-		<%= yield %>
+		<div class="container">
+			<%= yield %>
+		</div>
 	</div>
 
 </body>

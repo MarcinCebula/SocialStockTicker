@@ -1,0 +1,14 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th> Stock Name </th>
+      <th> PTAT Score </th>
+      <th> Website </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each SocialStocks.stocksController}}
+      {{view SocialStocks.ShowView contentBinding="this"}}
+    {{/each}}     
+  </tbody>
+</table>

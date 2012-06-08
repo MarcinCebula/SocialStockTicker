@@ -1,0 +1,1 @@
+//= require app/social_stock

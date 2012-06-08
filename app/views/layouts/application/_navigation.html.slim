@@ -9,22 +9,23 @@ div class="navbar navbar-fixed-top"
 			a class="brand" href="#{root_path}" alt="Find My Next Apartment Logo" SocialStockTicker 
 			div class="nav-collapse"
 				ul class="nav"
-					li class="active"
-						a href="#" Listings
-					li 
-						a href="#" Help
-				ul class="nav pull-right"
-					li
-						div
-							a href="#" class="btn btn-success btn-large" 
-								| Create Listing
-					li class="divider-vertical"
-					
-					li
-						div
-							a href="/authentications#login" class="btn btn-primary btn-large" 
-								| Log In
-
+					- if request.path == root_path
+						li  class="active"
+							a class="test_class" href="#{root_path}" Home
+					- else
+						li  class=""
+							a class="test_class" href="#{root_path}" Home
+					- if request.path == docs_path
+						li  class="active"
+							a href="#{docs_path}" Docs
+					- else
+						li  class=""
+							a href="#{docs_path}" Docs
+				- if admin_signed_in?			
+					ul class="nav pull-right"
+						li
+							div
+								= link_to "Logout", :destroy_admin_session, :method => :delete, :class => "btn btn-success btn-large" 
 
 
 / div class="navbar navbar-fixed-top"
