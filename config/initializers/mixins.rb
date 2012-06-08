@@ -1,4 +1,4 @@
 class Hash
   include HashMixin
-  include CapybaraMixin
+  # include CapybaraMixin
 end

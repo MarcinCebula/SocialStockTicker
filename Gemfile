@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'  
+#ruby '1.9.3'  
 gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
@@ -21,7 +21,8 @@ group :assets do
 	gem 'slim'
 	# gem 'compass_twitter_bootstrap'
 	gem "compass_twitter_bootstrap", git: "https://github.com/vwall/compass-twitter-bootstrap.git"
-	
+  gem 'ember-rails'
+
 	gem 'jquery-rails'
   gem 'rabl'
   gem 'haml'
@@ -34,7 +35,7 @@ group :assets do
 end
 
 
-group :test, :development do
+group :test do
   gem "rspec-rails"
   gem 'rspec-instafail'
   gem 'rb-fsevent'
@@ -57,7 +58,6 @@ group :test, :development do
 	gem 'jasmine'
 	gem 'guard-jasmine'
 	gem 'jasminerice'
-	gem 'ember-rails'
 end
 
 group :test do
