@@ -11,7 +11,7 @@ gem "mongoid", "~> 2.4"
 gem "bson_ext", "~> 1.5"
 
 gem 'devise'
-
+gem 'rabl'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -24,7 +24,6 @@ group :assets do
   gem 'ember-rails'
 
 	gem 'jquery-rails'
-  gem 'rabl'
   gem 'haml'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
