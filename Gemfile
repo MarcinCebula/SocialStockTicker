@@ -13,7 +13,7 @@ gem "bson_ext", "~> 1.5"
 gem 'devise'
 gem 'rabl'
 gem 'haml'
-
+gem 'thin'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
