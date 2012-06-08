@@ -67,7 +67,7 @@ module SocialStockTicker
     config.assets.version = '1.0'
 
     # Default to SASS
-    config.sass.preferred_syntax = :sass
+    # config.sass.preferred_syntax = :sass
     config.assets.enabled = true
 
     #Configuration for Testing suite
