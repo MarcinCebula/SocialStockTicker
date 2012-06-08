@@ -22,9 +22,8 @@ group :assets do
 	gem 'compass-rails' 
 	gem 'slim'
 	# gem 'compass_twitter_bootstrap'
-	gem "compass_twitter_bootstrap", git: "https://github.com/vwall/compass-twitter-bootstrap.git"
+	gem "compass_twitter_bootstrap"
   gem 'ember-rails'
-
 	gem 'jquery-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes

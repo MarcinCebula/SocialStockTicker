@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/vwall/compass-twitter-bootstrap.git
-  revision: be734a5be9fb51a050dbb9876831bd29bfb3b079
-  specs:
-    compass_twitter_bootstrap (2.0.3)
-      compass
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -72,6 +65,8 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.2)
       compass (>= 0.12.0, < 0.14)
+    compass_twitter_bootstrap (2.0.3)
+      compass
     database_cleaner (0.8.0)
     debugger (1.1.4)
       columnize (>= 0.3.1)
@@ -267,7 +262,7 @@ DEPENDENCIES
   capybara-webkit
   coffee-rails (~> 3.2.1)
   compass-rails
-  compass_twitter_bootstrap!
+  compass_twitter_bootstrap
   database_cleaner
   debugger
   devise
