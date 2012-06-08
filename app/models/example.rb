@@ -27,4 +27,4 @@ class Example
 		def assign_email
       self.email = self.user + "@gmail.com"
 		end
-	end
+end

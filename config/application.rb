@@ -4,6 +4,8 @@ require File.expand_path('../boot', __FILE__)
 # Add this for MySQL
 # require "active_record/railtie"
 
+# require 'devise/orm/mongoid'
+
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"

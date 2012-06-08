@@ -1,5 +1,11 @@
 SocialStockTicker::Application.routes.draw do
  
+  devise_for :admins
+  unauthenticated do
+    as :admin do
+      root :to => 'authentications#index'
+    end
+  end
 
   # resource :examples, :defaults => { :format => 'json' }
   namespace :api do
@@ -7,12 +13,18 @@ SocialStockTicker::Application.routes.draw do
       resources :examples, 
                 :only => [:index, :create, :show, :update, :destroy], 
                 :defaults => { :format => 'json' }
+      resources :stocks, 
+                :only => [:index, :create, :show, :destroy], 
+                :defaults => { :format => 'json' }
     end
   end
   
   resources :authentications, :only => [:index]
+  resources :docs, :only => [:index]
+  resources :social_stocks, :only => [:index]
 
-  root :to => 'authentications#index'
+  match "social_stocks_path" => "social_stocks#index"
+  root :to => 'social_stocks#index'
 
 
 
