@@ -12,6 +12,8 @@ gem "bson_ext", "~> 1.5"
 
 gem 'devise'
 gem 'rabl'
+gem 'haml'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -24,7 +26,6 @@ group :assets do
   gem 'ember-rails'
 
 	gem 'jquery-rails'
-  gem 'haml'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
