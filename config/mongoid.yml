@@ -2,7 +2,7 @@
 #   host: localhost
 #   database: social_stock_ticker_development
 
-production:
+development:
   uri: <%= ENV['MONGOHQ_URL'] %>
 
 test:
