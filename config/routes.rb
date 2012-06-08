@@ -13,6 +13,9 @@ SocialStockTicker::Application.routes.draw do
       resources :examples, 
                 :only => [:index, :create, :show, :update, :destroy], 
                 :defaults => { :format => 'json' }
+      resources :stocks, 
+                :only => [:index, :create, :show, :destroy], 
+                :defaults => { :format => 'json' }
     end
   end
   
