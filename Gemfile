@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '1.9.3'  
 gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
@@ -9,9 +10,6 @@ gem 'rails', '3.2.2'
 gem "mongoid", "~> 2.4"
 gem "bson_ext", "~> 1.5"
 
-gem 'jquery-rails'
-gem 'rabl'
-gem 'haml'
 gem 'devise'
 
 # Gems used only for assets and not required
@@ -24,7 +22,10 @@ group :assets do
 	# gem 'compass_twitter_bootstrap'
 	gem "compass_twitter_bootstrap", git: "https://github.com/vwall/compass-twitter-bootstrap.git"
 	
-	
+	gem 'jquery-rails'
+  gem 'rabl'
+  gem 'haml'
+
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
 
