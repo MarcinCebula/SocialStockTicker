@@ -1,9 +1,6 @@
-# development:
-#   host: localhost
-#   database: social_stock_ticker_development
-
 development:
-  uri: <%= ENV['MONGOHQ_URL'] %>
+  host: localhost
+  database: social_stock_ticker_development
 
 test:
   host: localhost
@@ -11,7 +8,16 @@ test:
 
 # set these environment variables on your prod server
 production:
-  uri: <%= ENV['MONGOHQ_URL'] %>
+  host: <%= ENV['MONGOID_HOST'] %>
+  port: <%= ENV['MONGOID_PORT'] %>
+  username: <%= ENV['MONGOID_USERNAME'] %>
+  password: <%= ENV['MONGOID_PASSWORD'] %>
+  database: <%= ENV['MONGOID_DATABASE'] %>
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019
 
 
 allow_dynamic_fields: false
