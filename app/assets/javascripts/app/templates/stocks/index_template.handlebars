@@ -7,8 +7,8 @@
     </tr>
   </thead>
   <tbody>
-    {{#each SocialStocks.stocksController}}
-      {{view SocialStocks.ShowView contentBinding="this"}}
+    {{#each stock in controller.content}}
+      {{view SocialStocks.ShowView stockBinding="stock"}}
     {{/each}}     
   </tbody>
 </table>
