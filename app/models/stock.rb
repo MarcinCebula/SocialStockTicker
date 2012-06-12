@@ -23,7 +23,7 @@ class Stock
       if((stock.updated_at + 23.hours) < Time.now)
         old_ptat_score = stock.ptat_score.to_i
         stock.yesterday_ptat_score = old_ptat_score
-        stock.ptat_score = StocksLib.load_facebook_data(stock.name)
+        stock.ptat_score = StocksLib.load_facebook_data(stock.page_id)
         stock.ptat_daily_change_in_percent =  sprintf "%.2f",((((stock.ptat_score - stock.yesterday_ptat_score)*1.0)/stock.yesterday_ptat_score) * 100)
         stock.save!
       end 
