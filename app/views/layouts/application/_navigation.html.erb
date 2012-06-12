@@ -1,0 +1,43 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+			</a>
+			<a class="brand" href=<%="#{root_path}"%> alt="Find My Next Apartment Logo">SocialStockTicker</a>
+			<div class="nav-collapse">
+				<ul class="nav">
+					<% if (request.path == root_path) %>
+						<li class="active">
+							<a class="test_class" href=<%="#{root_path}"%>>Home</a>
+						</li>
+					<% else %>
+						<li  class="">
+							<a class="test_class" href=<%="#{root_path}"%>>Home</a>
+						</li>
+					<% end %>
+					<% if (request.path == docs_path) %>
+						<li  class="active">
+							<a href=<%="#{docs_path}"%>>Docs</a>
+						</li>
+					<% else %>
+						<li  class="">
+							<a href=<%="#{docs_path}"%>>Docs</a>
+						</li>
+					<% end %>
+				</ul>
+				<% if (admin_signed_in?) %>
+					<ul class="nav pull-right">
+						<li>
+							<div>
+								<%= link_to "Logout", :destroy_admin_session, :method => :delete, :class => "btn btn-success btn-large" %>
+							</div>
+						</li>
+					</ul>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>	

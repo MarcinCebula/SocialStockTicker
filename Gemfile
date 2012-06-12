@@ -17,17 +17,16 @@ gem 'thin'
 # Gems used only for assets and not required
 # in production environments by default.
 
-group :production do
-	gem 'slim'
-end
+# group :production do
+	# gem 'slim'
+# end
 
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 	gem 'compass-rails' 
-	gem 'slim'
-	# gem 'compass_twitter_bootstrap'
+	# gem 'slim'
 	gem "compass_twitter_bootstrap"
   gem 'ember-rails'
 	gem 'jquery-rails'
