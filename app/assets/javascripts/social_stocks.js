@@ -3,5 +3,5 @@
 //= require_tree ./resources/social_stocks/controllers
 //= require_tree ./resources/social_stocks/views
 //= require_tree ./resources/social_stocks/tags
-// require_tree ./resources/social_stocks/helpers //this is not working in heroku
 //= require_tree ./resources/social_stocks/templates
+// require_tree ./resources/social_stocks/helpers //this is not working in heroku
