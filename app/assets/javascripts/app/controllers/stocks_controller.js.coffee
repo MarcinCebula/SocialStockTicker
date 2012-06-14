@@ -66,12 +66,12 @@ SocialStocks.stocksController = Em.ArrayController.create
 				
 	destroyRecord: (stock) ->
 			sc = this
-			url = this.resource_delete + stock.page_id
+			url = this.resource_delete + stock.page_id			
 			$.ajax url,
 				type: 'DELETE'
 				dataType: 'json'
 				success: (data) ->
-					sc.popObject(stock) 
+					sc.removeObject(stock) 
 				error: (data) ->
 					alert "The object could not be delete from server"
 	
