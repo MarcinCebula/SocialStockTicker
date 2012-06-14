@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require ./twitter-bootstrap-plugins
 //= require ember
+//= require_tree ./layout
 
