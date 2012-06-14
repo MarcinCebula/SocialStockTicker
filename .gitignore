@@ -6,10 +6,10 @@
 
 #private data
 
-#/config/database.yml
-#/config/mongoid.yml
-#/config/initializers/secret_token.rb
-#/config/initializers/session_store.rb
+/config/database.yml
+/config/mongoid.yml
+/config/initializers/secret_token.rb
+/config/initializers/session_store.rb
 
 # Ignore bundler config
 /.bundle

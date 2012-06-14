@@ -25,6 +25,7 @@ SocialStocks.stocksController = Em.ArrayController.create
 	loadStock: () ->
 		sc = this
 		stockName = sc.get('stockName')
+		sc.set('stockName','')
 		sc.createStock(stockName, sc.facebook_api_url) unless sc.validate(stockName)  
 	
 	validate: (stockName) ->	
@@ -42,13 +43,11 @@ SocialStocks.stocksController = Em.ArrayController.create
 					name: data.name 
 					link: data.link
 					ptat_score: data.talking_about_count
-				console.log(stock)
 				sc.saveRecord(stock)
 			error: (data) ->
 				alert "Incorrect facebook id or name"
 		
 	saveRecord:(stock) ->
-		console.log("saveRecord")
 		sc = this
 		url = sc.create_resource
 		$.ajax url,
