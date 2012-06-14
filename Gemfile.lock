@@ -262,6 +262,7 @@ DEPENDENCIES
   bson_ext (~> 1.5)
   capybara
   capybara-webkit
+  coderay
   coffee-rails (~> 3.2.1)
   compass-rails
   compass_twitter_bootstrap
