@@ -16,10 +16,10 @@ SocialStocks.stocksController = Em.ArrayController.create
 			success: (data) ->
 				data.stock.map (s) ->
 					stock = SocialStocks.Stock.create
-						page_id: s.stock.page_id
-						name: s.stock.name
-						link: s.stock.link
-						ptat_score: s.stock.ptat_score
+						page_id: s.page_id
+						name: s.name
+						link: s.link
+						ptat_score: s.ptat_score
 					sc.pushObject(stock) 
 	
 	loadStock: () ->
