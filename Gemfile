@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+# ruby '1.9.3'  
 gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
@@ -9,22 +10,27 @@ gem 'rails', '3.2.2'
 gem "mongoid", "~> 2.4"
 gem "bson_ext", "~> 1.5"
 
-gem 'jquery-rails'
+gem 'devise'
 gem 'rabl'
 gem 'haml'
-gem 'devise'
-
+gem 'thin'
 # Gems used only for assets and not required
 # in production environments by default.
+
+# group :production do
+	# gem 'slim'
+# end
+
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 	gem 'compass-rails' 
-	gem 'slim'
-	# gem 'compass_twitter_bootstrap'
-	gem "compass_twitter_bootstrap", git: "https://github.com/vwall/compass-twitter-bootstrap.git"
-	
-	
+	# gem 'slim'
+	gem "compass_twitter_bootstrap"
+  gem 'ember-rails'
+	gem 'jquery-rails'
+
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
 
@@ -33,7 +39,7 @@ group :assets do
 end
 
 
-group :test, :development do
+group :test do
   gem "rspec-rails"
   gem 'rspec-instafail'
   gem 'rb-fsevent'
@@ -56,7 +62,6 @@ group :test, :development do
 	gem 'jasmine'
 	gem 'guard-jasmine'
 	gem 'jasminerice'
-	gem 'ember-rails'
 end
 
 group :test do

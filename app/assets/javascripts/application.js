@@ -14,10 +14,5 @@
 //= require jquery_ujs
 //= require ./twitter-bootstrap-plugins
 //= require ember
-//= require ./app/social_stocks
-//= require_tree ./app/models
-//= require_tree ./app/controllers
-//= require_tree ./app/views
-//= require_tree ./app/helpers
-//= require_tree ./app/templates
+//= require_tree ./layout
 

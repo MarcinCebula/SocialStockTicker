@@ -19,6 +19,14 @@ SocialStockTicker::Application.routes.draw do
     end
   end
   
+  namespace :public do
+    namespace :v1 do
+      resources :stocks, 
+                :only => [:index],
+                :defaults => { :format => 'json' }
+    end
+  end
+  
   resources :authentications, :only => [:index]
   resources :docs, :only => [:index]
   resources :social_stocks, :only => [:index]
