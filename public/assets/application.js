@@ -12003,14 +12003,6 @@ Ember.TEMPLATES["resources/social_stocks/templates/stocks/social_stock_new"] = E
 
   return buffer;
 });
-
-
-
-
-
-
-// require_tree ./resources/social_stocks/helpers //this is not working in heroku
-;
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -12030,4 +12022,9 @@ Ember.TEMPLATES["resources/social_stocks/templates/stocks/social_stock_new"] = E
 
 
 
+
+
+
+
+// require_tree ./resources/social_stocks/helpers //this is not working in heroku
 ;
