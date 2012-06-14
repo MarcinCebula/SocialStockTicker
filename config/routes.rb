@@ -7,7 +7,6 @@ SocialStockTicker::Application.routes.draw do
     end
   end
 
-  # resource :examples, :defaults => { :format => 'json' }
   namespace :api do
     namespace :v1 do
       resources :examples, 
