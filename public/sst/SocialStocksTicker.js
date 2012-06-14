@@ -5,7 +5,8 @@
 	var stocks = [];
 	var tickers = null; 
 	var scrollRate = 5;
-	var tickerSpacing = null
+	var tickerSpacing = null;
+	var updateStocksInMinutes = 5;
 	var url = "http://evening-winter-4582.herokuapp.com/public/v1/stocks?callback=?";
 	var defaults = $.extend({
 		'backgroundColor' 			: 'white',
@@ -27,16 +28,12 @@
 			
 			this.css({'background-color'	: settings['backgroundColor']});
 			this.css({'color' 					 	: settings['stockNameColor']});
-			tickerSpacing 								=	parseInt(settings['tickerSpacing'])
-			updateStocksInMinutes 				= parseInt(settings['updateStocksInMinutes'])
-			// this.css('.stock_name_color' : settings['stock_up_color']);
-			// this.css('stock_up_color' 	: settings['stock_down_color']);
-			
+			tickerSpacing 								=	parseInt(settings['tickerSpacing']);
+			updateStocksInMinutes 				= parseInt(settings['updateStocksInMinutes']);
+			scrollRate										= parseInt(settings['scrollSpeed']);			
 			runTicker();
 		},
 		assignUrl : function(new_url) {
-			console.log("assignUrl")
-			console.log(new_url)
 			url = new_url
 		}
 		// print_settings : function() { 
@@ -49,6 +46,12 @@
 		// }
 	};
 	
+	
+	function setColors() {
+		$('.no-change').css('color', settings['stockNoChange']);
+		$('.positive-change').css('color', settings['stockUpColor']);
+		$('.negative-change').css('color', settings['stockDownColor']);
+	}
 
 	function resetState() {
 		$(".marqueeElement").each(function() {
@@ -84,6 +87,7 @@
 				appendTickerStream(item);
 				ticker.show();
 			});
+			setColors();
 			startScrolling();
 		}).error(function() {
 			serverErrorHandling();
@@ -119,7 +123,7 @@
  			left = (fullLength - elementLength);
  			element.css("left", left);
 		}
-		element.animate({ left: (parseInt(left)-scrollRate) },100,'linear', 
+		element.animate({ left: (parseInt(left)-scrollRate) }, 100,'linear', 
 			function() {scrollElement($(this), fullLength, elementLength)
 		});
 	}

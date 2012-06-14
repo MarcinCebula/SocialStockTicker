@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-	Factory.sequence(:user) { |n| "user#{n}" }
+	sequence(:user) { |n| "user#{n}" }
 
 	factory :example do
 		name "Generic Example"

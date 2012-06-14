@@ -24,8 +24,8 @@ a:link, a:hover, a:active, a:visited {
 	font-family: Arial,Helvetica;
 }
 
-.no-change { color: #F89406 !important; }
-.negative-change { color: #D14836 !important;}
-.positive-change { color: #009933 !important; }
+.no-change { color: #F89406; }
+.negative-change { color: #D14836; }
+.positive-change { color: #009933; }
 
 

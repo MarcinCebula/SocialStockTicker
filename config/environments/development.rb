@@ -38,6 +38,9 @@ SocialStockTicker::Application.configure do
   ## Devise
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
+  ##Ember JS
+  config.ember.variant = :development
+
   silence_warnings do
     begin
       require 'pry'
