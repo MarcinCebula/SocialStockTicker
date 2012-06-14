@@ -1,23 +1,3 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
-//
-// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
-// GO AFTER THE REQUIRES BELOW.
-//
-
-
-
-
-
-
-
-;
 /*!
  * jQuery JavaScript Library v1.7.2
  * http://jquery.com/
@@ -11679,3 +11659,375 @@ d){var f=a(d);b.call(c,d,e[f])})}}}(),function(){var a={},b={};Ember.onLoad=func
   });
 
 }).call(this);
+(function() {
+
+  window.SocialStocks = Ember.Application.create();
+
+}).call(this);
+(function() {
+
+  SocialStocks.Stock = Ember.Object.extend({
+    page_id: null,
+    name: null,
+    link: null,
+    ptat_score: null
+  });
+
+}).call(this);
+(function() {
+
+  SocialStocks.StocksInput = Ember.Object.extend({
+    social_stock: 'cat',
+    init: function() {
+      this._super;
+      return this["this"].validate;
+    },
+    validate: function() {
+      if (this.get('social_stock') === void 0 || this.get('social_stock') === '') {
+        return 'Input required a valid Social Stock name or id.';
+      }
+    }
+  });
+
+}).call(this);
+(function() {
+
+  SocialStocks.stocksController = Em.ArrayController.create({
+    content: [],
+    stockName: null,
+    stockPageId: null,
+    facebook_api_url: "https://graph.facebook.com/",
+    resource_index: "/api/v1/stocks/",
+    resource_delete: "/api/v1/stocks/",
+    create_resource: "/api/v1/stocks/",
+    init: function() {
+      var sc, url;
+      this._super();
+      sc = this;
+      url = sc.resource_index;
+      return $.ajax(url, {
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          return data.stock.map(function(s) {
+            var stock;
+            stock = SocialStocks.Stock.create({
+              page_id: s.page_id,
+              name: s.name,
+              link: s.link,
+              ptat_score: s.ptat_score
+            });
+            return sc.pushObject(stock);
+          });
+        }
+      });
+    },
+    loadStock: function() {
+      var sc, stockName;
+      sc = this;
+      stockName = sc.get('stockName');
+      sc.set('stockName', '');
+      if (!sc.validate(stockName)) {
+        return sc.createStock(stockName, sc.facebook_api_url);
+      }
+    },
+    validate: function(stockName) {
+      return stockName === void 0 || stockName === '' || stockName === null;
+    },
+    createStock: function(stock_name, facebook_url) {
+      var sc, url;
+      sc = this;
+      url = facebook_url + stock_name;
+      return $.ajax(url, {
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          var stock;
+          stock = SocialStocks.Stock.create({
+            page_id: data.id,
+            name: data.name,
+            link: data.link,
+            ptat_score: data.talking_about_count
+          });
+          return sc.saveRecord(stock);
+        },
+        error: function(data) {
+          return alert("Incorrect facebook id or name");
+        }
+      });
+    },
+    saveRecord: function(stock) {
+      var sc, url;
+      sc = this;
+      url = sc.create_resource;
+      return $.ajax(url, {
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          page_id: stock.page_id,
+          name: stock.name,
+          ptat_score: stock.ptat_score,
+          link: stock.link
+        },
+        success: function(data) {
+          return sc.pushObject(stock);
+        },
+        error: function(status, data) {
+          return alert("Stock could not be saved to the server");
+        }
+      });
+    },
+    destroyRecord: function(stock) {
+      var sc, url;
+      sc = this;
+      url = this.resource_delete + stock.page_id;
+      return $.ajax(url, {
+        type: 'DELETE',
+        dataType: 'json',
+        success: function(data) {
+          return sc.removeObject(stock);
+        },
+        error: function(data) {
+          return alert("The object could not be delete from server");
+        }
+      });
+    },
+    convertObjectToStockObject: function(object) {
+      var stock;
+      return stock = SocialStocks.Stock.create({
+        page_id: object.page_id,
+        name: object.name,
+        link: object.link,
+        ptat_score: object.ptat_score
+      });
+    }
+  });
+
+}).call(this);
+(function() {
+
+  SocialStocks.IndexView = Ember.View.extend({
+    templateName: 'resources/social_stocks/templates/stocks/index_template',
+    tagName: 'tr',
+    contentBinding: 'SocialStocks.stocksController.content',
+    controllerBinding: 'SocialStocks.stocksController'
+  });
+
+}).call(this);
+(function() {
+
+  SocialStocks.NewView = Ember.View.extend({
+    templateName: 'resources/social_stocks/templates/stocks/new_template',
+    stockInputBinding: 'SocialStocks.stocksController.stockName'
+  });
+
+}).call(this);
+(function() {
+
+  SocialStocks.ShowView = Ember.View.extend({
+    templateName: 'resources/social_stocks/templates/stocks/show_template',
+    destroyRecord: function() {
+      var stock;
+      stock = this.get('stock');
+      return SocialStocks.stocksController.destroyRecord(stock);
+    }
+  });
+
+}).call(this);
+(function() {
+
+  SocialStocks.StocksField = Ember.TextField.extend({
+    valueBinding: 'SocialStocks.stocksController.stockName',
+    placeholder: "Social Stock",
+    "class": "span4 input-medium",
+    insertNewline: function(evt) {
+      return SocialStocks.stocksController.loadStock();
+    }
+  });
+
+}).call(this);
+Ember.TEMPLATES["resources/social_stocks/templates/stocks/index_template"] = Ember.Handlebars.template(function anonymous(Handlebars, depth0, helpers, partials, data) { helpers = helpers || Ember.Handlebars.helpers;
+  var buffer = '', stack1, stack2, stack3, stack4, stack5, stack6, stack7, foundHelper, tmp1, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
+
+function program1(depth0,data) {
+  
+  var buffer = '', stack1, stack2, stack3, stack4;
+  data.buffer.push("\n      ");
+  stack1 = depth0;
+  stack2 = "SocialStocks.ShowView";
+  stack3 = {};
+  stack4 = "stock";
+  stack3['stockBinding'] = stack4;
+  foundHelper = helpers.view;
+  stack4 = foundHelper || depth0.view;
+  tmp1 = {};
+  tmp1.hash = stack3;
+  tmp1.contexts = [];
+  tmp1.contexts.push(stack1);
+  tmp1.data = data;
+  if(typeof stack4 === functionType) { stack1 = stack4.call(depth0, stack2, tmp1); }
+  else if(stack4=== undef) { stack1 = helperMissing.call(depth0, "view", stack2, tmp1); }
+  else { stack1 = stack4; }
+  data.buffer.push(escapeExpression(stack1) + "\n    ");
+  return buffer;}
+
+  data.buffer.push("<table class=\"table table-bordered table-striped\">\n  <thead>\n    <tr>\n      <th> Stock Name </th>\n      <th> PTAT Score </th>\n      <th> Website </th>\n    </tr>\n  </thead>\n  <tbody>\n    ");
+  stack1 = depth0;
+  stack2 = "controller.content";
+  stack3 = depth0;
+  stack4 = "in";
+  stack5 = depth0;
+  stack6 = "stock";
+  stack7 = helpers.each;
+  tmp1 = self.program(1, program1, data);
+  tmp1.hash = {};
+  tmp1.contexts = [];
+  tmp1.contexts.push(stack5);
+  tmp1.contexts.push(stack3);
+  tmp1.contexts.push(stack1);
+  tmp1.fn = tmp1;
+  tmp1.inverse = self.noop;
+  tmp1.data = data;
+  stack1 = stack7.call(depth0, stack6, stack4, stack2, tmp1);
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("     \n  </tbody>\n</table>\n");
+  return buffer;
+});
+Ember.TEMPLATES["resources/social_stocks/templates/stocks/new_template"] = Ember.Handlebars.template(function anonymous(Handlebars, depth0, helpers, partials, data) { helpers = helpers || Ember.Handlebars.helpers;
+  var buffer = '', stack1, stack2, stack3, stack4, foundHelper, tmp1, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<span class=\"form-inline\">\n	");
+  stack1 = depth0;
+  stack2 = "SocialStocks.StocksField";
+  foundHelper = helpers.view;
+  stack3 = foundHelper || depth0.view;
+  tmp1 = {};
+  tmp1.hash = {};
+  tmp1.contexts = [];
+  tmp1.contexts.push(stack1);
+  tmp1.data = data;
+  if(typeof stack3 === functionType) { stack1 = stack3.call(depth0, stack2, tmp1); }
+  else if(stack3=== undef) { stack1 = helperMissing.call(depth0, "view", stack2, tmp1); }
+  else { stack1 = stack3; }
+  data.buffer.push(escapeExpression(stack1) + "  \n	<button href=\"#\" class=\"btn btn-success\" ");
+  stack1 = depth0;
+  stack2 = "loadStock";
+  stack3 = {};
+  stack4 = "SocialStocks.stocksController";
+  stack3['target'] = stack4;
+  foundHelper = helpers.action;
+  stack4 = foundHelper || depth0.action;
+  tmp1 = {};
+  tmp1.hash = stack3;
+  tmp1.contexts = [];
+  tmp1.contexts.push(stack1);
+  tmp1.data = data;
+  if(typeof stack4 === functionType) { stack1 = stack4.call(depth0, stack2, tmp1); }
+  else if(stack4=== undef) { stack1 = helperMissing.call(depth0, "action", stack2, tmp1); }
+  else { stack1 = stack4; }
+  data.buffer.push(escapeExpression(stack1) + ">Add Stock</button>\n</div>\n");
+  return buffer;
+});
+Ember.TEMPLATES["resources/social_stocks/templates/stocks/show_template"] = Ember.Handlebars.template(function anonymous(Handlebars, depth0, helpers, partials, data) { helpers = helpers || Ember.Handlebars.helpers;
+  var buffer = '', stack1, stack2, stack3, stack4, foundHelper, tmp1, self=this, functionType="function", helperMissing=helpers.helperMissing, undef=void 0, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<tr>\n	<td>");
+  stack1 = depth0;
+  stack2 = "stock.name";
+  stack3 = {};
+  stack4 = "true";
+  stack3['escaped'] = stack4;
+  foundHelper = helpers._triageMustache;
+  stack4 = foundHelper || depth0._triageMustache;
+  tmp1 = {};
+  tmp1.hash = stack3;
+  tmp1.contexts = [];
+  tmp1.contexts.push(stack1);
+  tmp1.data = data;
+  if(typeof stack4 === functionType) { stack1 = stack4.call(depth0, stack2, tmp1); }
+  else if(stack4=== undef) { stack1 = helperMissing.call(depth0, "_triageMustache", stack2, tmp1); }
+  else { stack1 = stack4; }
+  data.buffer.push(escapeExpression(stack1) + "</td>\n	<td>");
+  stack1 = depth0;
+  stack2 = "stock.ptat_score";
+  stack3 = {};
+  stack4 = "true";
+  stack3['escaped'] = stack4;
+  foundHelper = helpers._triageMustache;
+  stack4 = foundHelper || depth0._triageMustache;
+  tmp1 = {};
+  tmp1.hash = stack3;
+  tmp1.contexts = [];
+  tmp1.contexts.push(stack1);
+  tmp1.data = data;
+  if(typeof stack4 === functionType) { stack1 = stack4.call(depth0, stack2, tmp1); }
+  else if(stack4=== undef) { stack1 = helperMissing.call(depth0, "_triageMustache", stack2, tmp1); }
+  else { stack1 = stack4; }
+  data.buffer.push(escapeExpression(stack1) + "</td>\n	<td>");
+  stack1 = depth0;
+  stack2 = "stock.link";
+  stack3 = {};
+  stack4 = "true";
+  stack3['escaped'] = stack4;
+  foundHelper = helpers._triageMustache;
+  stack4 = foundHelper || depth0._triageMustache;
+  tmp1 = {};
+  tmp1.hash = stack3;
+  tmp1.contexts = [];
+  tmp1.contexts.push(stack1);
+  tmp1.data = data;
+  if(typeof stack4 === functionType) { stack1 = stack4.call(depth0, stack2, tmp1); }
+  else if(stack4=== undef) { stack1 = helperMissing.call(depth0, "_triageMustache", stack2, tmp1); }
+  else { stack1 = stack4; }
+  data.buffer.push(escapeExpression(stack1) + "\n	<td><a href=\"#\" ");
+  stack1 = depth0;
+  stack2 = "destroyRecord";
+  foundHelper = helpers.action;
+  stack3 = foundHelper || depth0.action;
+  tmp1 = {};
+  tmp1.hash = {};
+  tmp1.contexts = [];
+  tmp1.contexts.push(stack1);
+  tmp1.data = data;
+  if(typeof stack3 === functionType) { stack1 = stack3.call(depth0, stack2, tmp1); }
+  else if(stack3=== undef) { stack1 = helperMissing.call(depth0, "action", stack2, tmp1); }
+  else { stack1 = stack3; }
+  data.buffer.push(escapeExpression(stack1) + ">Delete</a></td>\n</tr>\n");
+  return buffer;
+});
+Ember.TEMPLATES["resources/social_stocks/templates/stocks/social_stock_new"] = Ember.Handlebars.template(function anonymous(Handlebars, depth0, helpers, partials, data) { helpers = helpers || Ember.Handlebars.helpers;
+  var buffer = '', foundHelper, self=this;
+
+
+  return buffer;
+});
+
+
+
+
+
+
+// require_tree ./resources/social_stocks/helpers //this is not working in heroku
+;
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// the compiled file.
+//
+// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
+// GO AFTER THE REQUIRES BELOW.
+//
+
+
+
+
+
+
+
+;
