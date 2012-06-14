@@ -8,8 +8,7 @@ test:
 
 # set these environment variables on your prod server
 production:
-  host: localhost
-  database: social_stock_ticker_production
+  uri: <%= ENV['MONGOHQ_URL'] %>
 
 
 allow_dynamic_fields: false
